@@ -1,0 +1,7 @@
+﻿  Deck.cpp
+C:\Users\user\Visual Studio\專題\專題\Deck.cpp(7,12): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+C:\Users\user\Visual Studio\專題\專題\Deck.cpp(50,12): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+  main.cpp
+C:\Users\user\Visual Studio\專題\專題\main.cpp(273,12): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+  正在產生程式碼...
+  專題.vcxproj -> C:\Users\user\Visual Studio\專題\x64\Debug\專題.exe
