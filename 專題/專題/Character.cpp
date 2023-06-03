@@ -15,6 +15,9 @@ Character::Character(int h,int a,int e) {
 int Character::getHP() {
 	return hp;
 }
+int Character::getFullHP() {
+	return fullHp;
+}
 int Character::getArmor() {
 	return armor;
 }
@@ -23,6 +26,9 @@ int Character::getMoney() {
 }
 int Character::getEnergy() {
 	return energy;
+}
+int Character::getFullEnergy(){
+	return fullEnergy;
 }
 void Character::setHP(int h) {
 	hp = h;
@@ -36,10 +42,11 @@ void Character::setMoney(int m) {
 void Character::setEnergy(int e) {
 	energy = e;
 }
-void Character::endTurn() {
-
-}
 void Character::setPlayer(Character x) {
+	fullHp = x.getHP();
 	setHP(x.getHP());
-	setEnergy(x.getEnergy());
+	fullEnergy = x.getEnergy();
+}
+void Character::setFullHP(int h) {
+	fullHp = h;
 }

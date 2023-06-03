@@ -31,32 +31,34 @@ int Card::getWeekRound() {
 }
 void Card::getInfo() {		//卡牌描述
 	int c = 0;
-	cout << "能量:" << getEnergy() << "，";
+	if (getNum() != 18) {
+		cout << "能量:" << getEnergy() << "，";
+	}
 	if (getDamage() != 0) {
 		cout << "造成" << getDamage() << "點傷害";
 		c += 1;
 	}
-	else if (getArmor() != 0) {
+	if (getArmor() != 0) {
 		if (c > 0) {
 			cout << " 並 ";
 		}
 		cout << "獲得" << getArmor() << "點護甲";
 		c += 1;
 	}
-	else if (getWeekRound() != 0) {
+	if (getWeekRound() != 0) {
 		if (c > 0) {
 			cout << " 並 ";
 		}
 		cout << "造成" << getWeekRound() << "層「虛弱」";
-		cout << " *虛弱:受到的傷害+1";
+		cout << endl << "\t  *虛弱:受到的傷害+1";
 		c += 1;
 	}
-	else if (getBleedRound() != 0) {
+	if (getBleedRound() != 0) {
 		if (c > 0) {
 			cout << " 並 ";
 		}
 		cout << "造成" << getBleedRound() << "層「流血」";
-		cout << " *流血:回合結束生命-2";
+		cout << endl << "\t  *流血:回合結束生命-2";
 		c += 1;
 	}
 	if (getNum() == 4) {
@@ -73,9 +75,6 @@ void Card::getInfo() {		//卡牌描述
 	}
 	if (getNum() == 10) {
 		cout << "護甲值翻倍";
-	}
-	if (getNum() == 11) {
-		cout << "，此回合傷害+2";
 	}
 	if (getNum() == 12) {
 		cout << "，生命-5";

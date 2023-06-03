@@ -34,9 +34,15 @@ void Map::setRoad(int i,int j, int event) {
 	else if (event == 4 ) {
 		road[i][j] = camp;
 	}
-	else if (event > 4) {
+	else if (event > 4&& event < 7) {
 		road[i][j] = shop;
 	}
+	else if(event == 7){
+		road[i][j] = player;
+	}
+}
+char Map::getRoad(int x, int y) {
+	return road[x][y];
 }
 void Map::print() { //輸出地圖
 	int times = 3;
@@ -147,7 +153,9 @@ void Map::print() { //輸出地圖
 void Map::setPlayer(int x, int y) {
 	playerPlace[0] = x;
 	playerPlace[1] = y;
-	moveTimes++;
+
+	move();
+
 }
 int Map::getPlayer() {
 	return playerPlace[0];
@@ -160,4 +168,7 @@ char Map::getWay1(int i) {
 }
 char Map::getWay2(int i) {
 	return way2[i];
+}
+void Map::move() {
+	moveTimes++;
 }

@@ -19,6 +19,12 @@ public:
 	void addCard(Card&);
 	void shuffle();
 	void draw(int);
-
+	int getNumOfHand();
+	void showHand();
+	void setHand(int,int);
+	Card getHand(int);
+	void setUsed(Card&);
+	void setNumOfUsed(int);
+	int getNumOfUsed();
 };
 #endif

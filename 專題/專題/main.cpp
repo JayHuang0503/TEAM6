@@ -3,11 +3,14 @@
 #include<cstdlib>
 #include<ctime>
 #include<string>
+#include <conio.h>
+#include<cstdlib>
 #include"Map.h"
 #include"Enemy.h"
 #include"Deck.h"
 #include"Character.h"
 using namespace std;
+
 void startPrint() {
 	int times = 3;
 	cout << '*';
@@ -17,7 +20,7 @@ void startPrint() {
 	cout << '*' << endl;
 	for (int i = 0; i < 5*times; i++) {
 		if (i == 5) {
-			cout << '|' << "                 卡  牌  冒  險                 |" << endl;
+			cout << '|' << "             卡  牌  冒  險  遊  戲             |" << endl;
 		}
 		else if (i == 10) {
 			cout << '|' << "               按下 Enter 鍵繼續...             |" << endl;
@@ -75,11 +78,252 @@ void chooseCharacter(Character& player) {
 		}
 	}
 }
-void battle() {
-
+void printState(Character& player) {		//狀態列表
+	int times = 3;
+	cout << '*';
+	for (int i = 0; i < 16 * times; i++) {
+		cout << '-';
+	}
+	cout << '*' << endl;
+	cout << "|" << "生命:" << setw(2) << player.getHP() << '/' << player.getFullHP();
+	if (player.getArmor() > 0) {
+		cout << "          護甲:" << setw(2) << player.getArmor();
+	}
+	else {
+		cout << "                 "; 
+	}
+	cout << "             金錢:" << setw(3) << player.getMoney() << "|" << endl;
 }
-void camp() {
-
+void printFight(Enemy& monster, Character& player) {
+	int times = 3;
+	printState(player);
+	cout << '*';
+	for (int i = 0; i < 16 * times; i++) {
+		cout << '-';
+	}
+	cout << '*' << endl;
+	for (int i = 0; i < 5 * times; i++) {
+		if (i == 6) {
+			cout << "|                      " << monster.getName() << "                      |" << endl;
+		}
+		else if (i == 7) {
+			cout << "|                     " << setw(2) << monster.getHp() << " /" << monster.getFullHp() << "                     |" << endl;
+		}
+		else if (i == 8) {
+			cout << "|                    " << "傷害:" << setw(2) << monster.getDamage() << "                     |" << endl;
+		}
+		else if (i == 9) {
+			if (monster.getWeekRound() != 0) {
+				cout << "|                  " << "虛弱:" << setw(2) << monster.getWeekRound() << "回合" << "                   |" << endl;
+			}
+			else {
+				cout << "|";
+				for (int j = 0; j < 16 * times; j++) {
+					cout << " ";
+				}
+				cout << "|" << endl;
+			}
+		}
+		else if (i == 10) {
+			if (monster.getBleedRound() != 0) {
+				cout << "|                  " << "流血:" << setw(2) << monster.getBleedRound() << "回合" << "                   |" << endl;
+			}
+			else {
+				cout << "|";
+				for (int j = 0; j < 16 * times; j++) {
+					cout << " ";
+				}
+				cout << "|" << endl;
+			}
+		}
+		else if (i == 13) {
+			cout << "*-------*                                        |" << endl;
+		}
+		else if (i == 14) {
+			cout << "|" << "能量:" << setw(2) << player.getEnergy() << "|                                        |" << endl;
+		}
+		else {
+			cout << "|";
+			for (int j = 0; j < 16 * times; j++) {
+				cout << " ";
+			}
+			cout << "|" << endl;
+		}
+	}
+	cout << '*';
+	for (int i = 0; i < 16 * times; i++) {
+		if (i == 7) {
+			cout << "*";
+		}
+		else {
+			cout << '-';
+		}
+	}
+	cout << '*' << endl;
+}
+void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
+	Enemy slime("殭屍", 15, 4, 9), bat("蝙蝠", 10, 3, 7), wolfman("狼人", 25, 8, 12), ghost("幽靈", 20, 7, 11),boss("魔王",50,10,0);
+	Enemy monster;
+	int r = rand() % 4;
+	if (r == 0) {
+		monster.setEnemy(slime,map.getMoveTimes());
+	}
+	else if (r == 1) {
+		monster.setEnemy(bat,map.getMoveTimes());
+	}
+	else if (r == 2) {
+		monster.setEnemy(wolfman, map.getMoveTimes());
+	}
+	else if (r == 3) {
+		monster.setEnemy(ghost, map.getMoveTimes());
+	}
+	if (map.getMoveTimes() == 10) {
+		monster.setEnemy(boss, map.getMoveTimes());
+	}
+	while (monster.getHp() > 0) {
+		bool ok = false;
+		deck.roundStart();
+		int input;
+		int en = player.getFullEnergy();
+		player.setEnergy(en);
+		printFight(monster, player);
+		do{
+			cout << "輸入編號打出卡牌 或 輸入0結束回合..." << endl << endl;
+			deck.showHand();
+			cin >> input;
+			Card temp = *new Card;
+			if (input >= 1 && input <= deck.getNumOfHand()) {
+				int newEn = en-deck.getHand(input - 1).getEnergy();
+				if (newEn < 0) {
+					cout << "能量不足" << endl;
+				}
+				else {
+					temp = deck.getHand(input - 1);
+					en = newEn;
+					player.setEnergy(en);
+					if (temp.getDamage() != 0) {
+						monster.setHp(monster.getHp() - (temp.getDamage()+monster.getWeekRound()));
+					}
+					if (temp.getArmor() != 0) {
+						player.setArmor(temp.getArmor()+player.getArmor());
+					}
+					if (temp.getWeekRound() != 0) {
+						monster.setWeekRound(temp.getWeekRound() + monster.getWeekRound());
+					}
+					if (temp.getBleedRound() != 0) {
+						monster.setBleedRound(temp.getBleedRound() + monster.getBleedRound());
+					}
+					if (temp.getNum() == 4) {
+						monster.setHp(monster.getHp()-player.getArmor());
+					}
+					if (temp.getNum() == 5) {
+						deck.draw(1);
+					}
+					if (temp.getNum() == 7) {
+						deck.setUsed(temp);
+						deck.setNumOfUsed(deck.getNumOfUsed()+1);
+					}
+					if (temp.getNum() == 9) {
+						deck.draw(2);
+					}
+					if (temp.getNum() == 10) {
+						player.setArmor(player.getArmor() * 2);
+					}
+					if (temp.getNum() == 12) {
+						player.setHP(player.getHP() - 5);
+					}
+					if (temp.getNum() == 14) {
+						for (int i = 0; i < 4; i++) {
+							monster.setHp(monster.getHp() - (temp.getDamage() + monster.getWeekRound()));
+						}
+					}
+					if (temp.getNum() == 15) {
+						player.setHP(player.getHP() - 5);
+					}
+					if (temp.getNum() == 16) {
+						player.setHP(player.getHP()+temp.getDamage() + monster.getWeekRound());
+					}
+					if (temp.getNum() == 17) {
+						for (int i = 0; i < 6; i++) {
+							monster.setHp(monster.getHp() - (temp.getDamage() + monster.getWeekRound()));
+						}
+					}
+					deck.setUsed(temp);
+					deck.setHand(input-1,18);
+				}
+				printFight(monster, player);
+			}
+			else if(input==0) {
+				if (monster.getBleedRound()>0) {
+					monster.setHp(monster.getHp() - 2);
+					monster.setBleedRound(monster.getBleedRound() - 1);
+				}
+				if (monster.getWeekRound() > 0) {
+					monster.setWeekRound(monster.getWeekRound() - 1);
+				}
+				cout << "結束回合" << endl;
+				ok = true;
+				break;
+			}
+			else {
+				cout << "輸入無效，請重新輸入" << endl;
+			}
+		} while (!ok&& monster.getHp()>0);
+		if (monster.getHp() > 0) {
+			if (player.getArmor() > 0) {
+				if (monster.getDamage() - player.getArmor() > 0) {
+					int newDamage = monster.getDamage() - player.getArmor();
+					player.setArmor(0);
+					player.setHP(player.getHP() - newDamage);
+				}
+				else if (player.getArmor() - monster.getDamage() >= 0) {
+					int newArmor = player.getArmor() - monster.getDamage();
+					player.setArmor(newArmor);
+				}
+			}
+			
+		}
+		if (player.getHP() <= 0) {
+			cout << "你被 " << monster.getName() << "消滅了，遊戲結束" << endl;
+			exit(0);
+		}
+		deck.roundOver();
+	}
+	player.setMoney(player.getMoney() + monster.getMoney());
+	cout <<endl<< "~~~~~~~~~~~~~~~~~~~~~戰鬥勝利~~~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "你擊敗了 " << monster.getName() << " 並獲得了 $" << monster.getMoney() << endl << endl;
+}
+void camp(Character& player) {
+	cout <<endl<< "~~~~~~~~~~~~~~~~~~~你抵達了營地~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "當前生命:" << setw(2) << player.getHP() << '/' << player.getFullHP() << endl << endl;
+	cout << "營火似乎有某種神奇的力量:" << endl <<endl;
+	int a, b;
+	char input;
+	bool ok=false;
+	a = player.getFullHP() * 0.3 + player.getHP();
+	if (a > player.getFullHP()) {
+		a = player.getFullHP();
+	}
+	b = player.getFullHP() + 8;
+	cout << "    1. " << "回復30%生命值 -> " << a << '/' << player.getFullHP() << endl << endl;
+	cout << "    2. " << "最大生命值+8 -> " << player.getHP()+8 << '/' << b << endl << endl;
+	cout << "輸入你的選擇..." << endl;
+	while (!ok) {
+		cin >> input;
+		if (input == '1') {
+			player.setHP(a);
+			ok = true;
+		}
+		else if (input == '2') {
+			player.setHP(player.getHP() + 8);
+			player.setFullHP(b);
+			ok = true;
+		}
+		else {
+			cout << "輸入無效，請重新輸入" << endl;
+		}
+	}
+	cout << "~~~~~~~~~~~~~~~~~~~你離開了營地~~~~~~~~~~~~~~~~~~~" << endl;
 }
 void shop(Character& player,Deck& deck) {
 	Card card1, card2, card3,card4;
@@ -87,74 +331,88 @@ void shop(Character& player,Deck& deck) {
 	card2.setNum(rand() % 15 + 3);
 	card3.setNum(rand() % 15 + 3);
 	card4.setNum(rand() % 15 + 3);
-	int p1 = 5 + rand() % 15 + rand() % 20;
-	int p2 = 5 + rand() % 15 + rand() % 20;
-	int p3 = 5 + rand() % 15 + rand() % 20;
-	int p4 = 5 + rand() % 15 + rand() % 20;
-	bool ok = false;
-	cout << "商品列表:" << endl;
-	cout << "1. " << "$" <<p1<< " " << card1.getName() << ":"; card1.getInfo();
-	cout << "2. " << "$" <<p2 << " " << card2.getName() << ":"; card2.getInfo();
-	cout << "3. " << "$" << p3<< " " << card3.getName() << ":"; card3.getInfo();
-	cout << "4. " << "$" << p4<< " " <<card4.getName() << ":"; card4.getInfo();
-	cout << "5. " << "$" << 50 << " " << "玩家能量+1 " << endl;
-	while (!ok) {
-		cout << "輸入商品編號 或 按下 E 離開商店..." << endl;
-		int input;
+	int p1 = 5 + rand() % 10 + rand() % 20;
+	int p2 = 5 + rand() % 10 + rand() % 20;
+	int p3 = 5 + rand() % 10 + rand() % 20;
+	int p4 = 5 + rand() % 10 + rand() % 20;
+	cout << "~~~~~~~~~~~~~~~~~~~歡迎來到商店~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "你的金錢$:" << player.getMoney() << endl << endl;
+	cout << "商品列表:" << endl << endl;
+	cout << "    1. " << "$" << setw(2) <<p1<< " " << card1.getName() << ":"; card1.getInfo();
+	cout << "    2. " << "$" <<setw(2) << p2 << " " << card2.getName() << ":"; card2.getInfo();
+	cout << "    3. " << "$" << setw(2) << p3<< " " << card3.getName() << ":"; card3.getInfo();
+	cout << "    4. " << "$" << setw(2) << p4<< " " <<card4.getName() << ":"; card4.getInfo();
+	cout << "    5. " << "$" << setw(2) << 50 << " " << "玩家能量+1 " << endl << endl;
+	cout << "輸入商品編號購買 或 輸入E離開商店..." << endl;
+	while (true) {
+		char input;
 		cin >> input;
-		if (input==1) {
+		if (input=='1') {
 			if (player.getMoney() - p1 >= 0) {
 				cout << "購買成功，" << card1.getName() << "已加入牌堆" << endl;
+				player.setMoney(player.getMoney() - p1);
+				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				deck.addCard(card1);
-				ok = true;
 			}
 			else {
 				cout << "購買失敗，金錢不足" << endl;
 			}
 		}
-		else if (input == 2) {
+		else if (input == '2') {
 			if (player.getMoney() - p2 >= 0) {
 				cout << "購買成功，" << card1.getName() << "已加入牌堆" << endl;
+				player.setMoney(player.getMoney() - p2);
+				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				deck.addCard(card2);
-				ok = true;
 			}
 			else {
 				cout << "購買失敗，金錢不足" << endl;
 			}
 		}
-		else if (input == 3) {
+		else if (input == '3') {
 			if (player.getMoney() - p3 >= 0) {
 				cout << "購買成功，" << card1.getName() << "已加入牌堆" << endl;
+				player.setMoney(player.getMoney() - p3);
+				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				deck.addCard(card3);
-				ok = true;
 			}
 			else {
 				cout << "購買失敗，金錢不足" << endl;
 			}
 		}
-		else if (input == 4) {
+		else if (input == '4') {
 			if (player.getMoney() - p4 >= 0) {
 				cout << "購買成功，" << card1.getName() << "已加入牌堆" << endl;
+				player.setMoney(player.getMoney() - p4);
+				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				deck.addCard(card4);
-				ok = true;
 			}
 			else {
 				cout << "購買失敗，金錢不足" << endl;
 			}
 		}
-		else if (input == 5) {
+		else if (input == '5') {
 			if (player.getMoney() - p2 >= 0) {
 				cout << "購買成功，能量+1" << endl;
+				player.setMoney(player.getMoney() - 50);
+				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				player.setEnergy(player.getEnergy() + 1);
-				ok = true;
 			}
 			else {
 				cout << "購買失敗，金錢不足" << endl;
 			}
+		}
+		else if (input == 'e' || input=='H') {
+			cout << "~~~~~~~~~~~~~~~~~~~歡迎再次光臨~~~~~~~~~~~~~~~~~~~" << endl;
+			break;
+		}
+		else {
+			cout << "輸入無效，請重新輸入" << endl;
 		}
 	}
 }
-void chooseRoad(Map &map) {
+void chooseRoad(Map &map,Character& player,Deck& deck) {
+	printState(player);
 	map.print();
 	if (map.getMoveTimes() != 10) {
 		int input=0,x=0;
@@ -280,20 +538,36 @@ void chooseRoad(Map &map) {
 				}
 			}
 		}
+		if (map.getRoad(x, map.getMoveTimes()) == '&') {
+		//	battle(player, deck, map);
+			cout << "打怪" << endl;
+		}
+		else if (map.getRoad(x, map.getMoveTimes()) == '$') {
+		//	shop(player, deck);
+			cout << "商店" << endl;
+		}
+		else if (map.getRoad(x, map.getMoveTimes()) == '#') {
+			camp(player);
+			cout << "營地" << endl;
+		}
+		//cout << x << ',' << map.getMoveTimes() << endl;
+		map.setRoad(x, map.getMoveTimes(), 7);
 		map.setPlayer(x, map.getMoveTimes());
-	}	
+	}
 }
 int main() {
 	srand(time(NULL));
 	Character player; 
 	Deck deck;
-	Enemy slime("史萊姆", 20, 5, 15), bat("蝙蝠", 15, 3, 12), wolfman("狼人", 30, 7, 20);
+	
 	Map map;
 	startPrint();
 	cin.get(); // 等待使用者按下 Enter 鍵
 	chooseCharacter(player);
+	deck.gameStart();
 	map.creatMap();
-	chooseRoad(map);
-	chooseRoad(map);
-	shop(player,deck);
+	while (map.getMoveTimes() != 10) {
+		chooseRoad(map, player, deck);
+	}
+
 }

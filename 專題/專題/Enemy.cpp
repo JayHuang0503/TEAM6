@@ -2,11 +2,26 @@
 #include <iostream>
 #include<string>
 using namespace std;
+Enemy::Enemy() {
+
+}
 Enemy::Enemy(string n,int h, int d, int m) {
 	name = n;
 	setHp(h);
 	setDamage(d);
 	setMoney(m);
+}
+void Enemy::setBleedRound(int br) {
+	bleedround = br;
+}
+int Enemy::getBleedRound() {
+	return bleedround;
+}
+void Enemy::setWeekRound(int wr) {
+	weekround = wr;
+}
+int Enemy::getWeekRound() {
+	return weekround;
 }
 int Enemy::getDamage() {
 	return damage;
@@ -20,6 +35,12 @@ int Enemy::getHp() {
 void Enemy::setHp(int h) {
 	hp = h;
 }
+int Enemy::getFullHp() {
+	return fullhp;
+}
+void Enemy::setFullHp(int h) {
+	fullhp = h;
+}
 int Enemy::getMoney() {
 	return money;
 }
@@ -29,21 +50,14 @@ void Enemy::setMoney(int m) {
 string Enemy::getName() {
 	return name;
 }
-void Enemy::card(int infoOfCard[]) {
-	if (infoOfCard[0] != 0) {
-		this->hp -= (infoOfCard[0]+(this->weekround));
-		cout << "你對 " << getName() << " 造成了 " << (infoOfCard[1] + (this->weekround)) << " 點傷害" << endl;
-	}
-	if (infoOfCard[3] != 0) {
-		this->bleedround += infoOfCard[3];
-		cout << getName() << "增加了" << infoOfCard[3] << "層「流血」" << endl;
-	}
+void Enemy::setName(string n) {
+	name = n;
 }
-bool Enemy::isDead() {
-	if (this->hp <= 0) {
-		return true;
-	}
-	else {
-		return false;
-	}
+void Enemy::setEnemy(Enemy& a,int mt) {
+	int num = rand() % (mt + 1 * 2);
+	setName(a.getName());
+	setHp(a.getHp()+num);
+	setFullHp(a.getHp() + num);
+	setDamage(a.getDamage());
+	setMoney(a.getMoney() + num);
 }
