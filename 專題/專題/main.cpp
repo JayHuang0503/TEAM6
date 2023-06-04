@@ -281,7 +281,7 @@ void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
 					player.setArmor(newArmor);
 				}
 			}
-			
+			cout << monster.getName() << "對你造成了 " << monster.getDamage() << " 點傷害" << endl;
 		}
 		if (player.getHP() <= 0) {
 			cout << "你被 " << monster.getName() << "消滅了，遊戲結束" << endl;
@@ -360,7 +360,7 @@ void shop(Character& player,Deck& deck) {
 		}
 		else if (input == '2') {
 			if (player.getMoney() - p2 >= 0) {
-				cout << "購買成功，" << card1.getName() << "已加入牌堆" << endl;
+				cout << "購買成功，" << card2.getName() << "已加入牌堆" << endl;
 				player.setMoney(player.getMoney() - p2);
 				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				deck.addCard(card2);
@@ -371,7 +371,7 @@ void shop(Character& player,Deck& deck) {
 		}
 		else if (input == '3') {
 			if (player.getMoney() - p3 >= 0) {
-				cout << "購買成功，" << card1.getName() << "已加入牌堆" << endl;
+				cout << "購買成功，" << card3.getName() << "已加入牌堆" << endl;
 				player.setMoney(player.getMoney() - p3);
 				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				deck.addCard(card3);
@@ -382,7 +382,7 @@ void shop(Character& player,Deck& deck) {
 		}
 		else if (input == '4') {
 			if (player.getMoney() - p4 >= 0) {
-				cout << "購買成功，" << card1.getName() << "已加入牌堆" << endl;
+				cout << "購買成功，" << card4.getName() << "已加入牌堆" << endl;
 				player.setMoney(player.getMoney() - p4);
 				cout << "剩餘金錢$:" << player.getMoney() << endl;
 				deck.addCard(card4);
@@ -539,20 +539,24 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 			}
 		}
 		if (map.getRoad(x, map.getMoveTimes()) == '&') {
-		//	battle(player, deck, map);
-			cout << "打怪" << endl;
+			battle(player, deck, map);
+		//	cout << "打怪" << endl;
 		}
 		else if (map.getRoad(x, map.getMoveTimes()) == '$') {
-		//	shop(player, deck);
-			cout << "商店" << endl;
+			shop(player, deck);
+		//	cout << "商店" << endl;
 		}
 		else if (map.getRoad(x, map.getMoveTimes()) == '#') {
 			camp(player);
-			cout << "營地" << endl;
+		//	cout << "營地" << endl;
 		}
 		//cout << x << ',' << map.getMoveTimes() << endl;
 		map.setRoad(x, map.getMoveTimes(), 7);
 		map.setPlayer(x, map.getMoveTimes());
+	}
+	else {
+		battle(player, deck, map);
+		cout << "~~~~~~~~~~~~~~~~~感謝遊玩此遊戲！~~~~~~~~~~~~~~~~~";
 	}
 }
 int main() {
@@ -569,5 +573,4 @@ int main() {
 	while (map.getMoveTimes() != 10) {
 		chooseRoad(map, player, deck);
 	}
-
 }
