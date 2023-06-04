@@ -20,10 +20,10 @@ void startPrint() {
 	cout << '*' << endl;
 	for (int i = 0; i < 5*times; i++) {
 		if (i == 5) {
-			cout << '|' << "             ¥d  µP  «_  ÀI  ¹C  À¸             |" << endl;
+			cout << '|' << "             å¡  ç‰Œ  å†’  éšª  éŠ  æˆ²             |" << endl;
 		}
 		else if (i == 10) {
-			cout << '|' << "               «ö¤U Enter ÁäÄ~Äò...             |" << endl;
+			cout << '|' << "               æŒ‰ä¸‹ Enter éµç¹¼çºŒ...             |" << endl;
 		}
 		
 		else {
@@ -48,10 +48,10 @@ void chooseCharacter(Character& player) {
 	cout << '*' << endl;
 	for (int i = 0; i < 5 * times; i++) {
 		if (i == 3) {
-			cout << '|' << "                    ¿ï¾Ü¨¤¦â:                   |" << endl;
+			cout << '|' << "                    é¸æ“‡è§’è‰²:                   |" << endl;
 		}
 		else if (i == 6) {
-			cout << '|' << "              1.¾Ô¤h ¥Í©R:50 ¯à¶q:3             |" << endl;
+			cout << '|' << "              1.æˆ°å£« ç”Ÿå‘½:50 èƒ½é‡:3             |" << endl;
 		}
 		else if (i == 9) {
 			cout << '|' << "                       2.                       |" << endl;
@@ -66,33 +66,33 @@ void chooseCharacter(Character& player) {
 	}
 	cout << '*' << endl;
 	while (!ok) {
-		cout << "¿ï¾Ü¨Ï¥Îªº¨¤¦â:";
+		cout << "é¸æ“‡ä½¿ç”¨çš„è§’è‰²:";
 		cin >> choose;
 		if (choose == 1) {
 			player.setPlayer(warrior);
-			cout << "§A¿ï¾Ü¤F¾Ô¤h" << endl;
+			cout << "ä½ é¸æ“‡äº†æˆ°å£«" << endl;
 			ok = true;
 		}
 		else {
-			cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+			cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 		}
 	}
 }
-void printState(Character& player) {		//ª¬ºA¦Cªí
+void printState(Character& player) {		//ç‹€æ…‹åˆ—è¡¨
 	int times = 3;
 	cout << '*';
 	for (int i = 0; i < 16 * times; i++) {
 		cout << '-';
 	}
 	cout << '*' << endl;
-	cout << "|" << "¥Í©R:" << setw(2) << player.getHP() << '/' << player.getFullHP();
+	cout << "|" << "ç”Ÿå‘½:" << setw(2) << player.getHP() << '/' << player.getFullHP();
 	if (player.getArmor() > 0) {
-		cout << "          Å@¥Ò:" << setw(2) << player.getArmor();
+		cout << "          è­·ç”²:" << setw(2) << player.getArmor();
 	}
 	else {
 		cout << "                 "; 
 	}
-	cout << "             ª÷¿ú:" << setw(3) << player.getMoney() << "|" << endl;
+	cout << "             é‡‘éŒ¢:" << setw(3) << player.getMoney() << "|" << endl;
 }
 void printFight(Enemy& monster, Character& player) {
 	int times = 3;
@@ -110,11 +110,11 @@ void printFight(Enemy& monster, Character& player) {
 			cout << "|                     " << setw(2) << monster.getHp() << " /" << monster.getFullHp() << "                     |" << endl;
 		}
 		else if (i == 8) {
-			cout << "|                    " << "¶Ë®`:" << setw(2) << monster.getDamage() << "                     |" << endl;
+			cout << "|                    " << "å‚·å®³:" << setw(2) << monster.getDamage() << "                     |" << endl;
 		}
 		else if (i == 9) {
 			if (monster.getWeekRound() != 0) {
-				cout << "|                  " << "µê®z:" << setw(2) << monster.getWeekRound() << "¦^¦X" << "                   |" << endl;
+				cout << "|                  " << "è™›å¼±:" << setw(2) << monster.getWeekRound() << "å›žåˆ" << "                   |" << endl;
 			}
 			else {
 				cout << "|";
@@ -126,7 +126,7 @@ void printFight(Enemy& monster, Character& player) {
 		}
 		else if (i == 10) {
 			if (monster.getBleedRound() != 0) {
-				cout << "|                  " << "¬y¦å:" << setw(2) << monster.getBleedRound() << "¦^¦X" << "                   |" << endl;
+				cout << "|                  " << "æµè¡€:" << setw(2) << monster.getBleedRound() << "å›žåˆ" << "                   |" << endl;
 			}
 			else {
 				cout << "|";
@@ -140,7 +140,7 @@ void printFight(Enemy& monster, Character& player) {
 			cout << "*-------*                                        |" << endl;
 		}
 		else if (i == 14) {
-			cout << "|" << "¯à¶q:" << setw(2) << player.getEnergy() << "|                                        |" << endl;
+			cout << "|" << "èƒ½é‡:" << setw(2) << player.getEnergy() << "|                                        |" << endl;
 		}
 		else {
 			cout << "|";
@@ -161,8 +161,8 @@ void printFight(Enemy& monster, Character& player) {
 	}
 	cout << '*' << endl;
 }
-void battle(Character& player, Deck& deck,Map& map) {		//¾Ô°«
-	Enemy slime("íL«Í", 15, 4, 10), bat("½¿½»", 10, 3, 8), wolfman("¯T¤H", 26, 8, 12), ghost("«ÕÆF", 30, 5, 15),boss("Å]¤ý",50,10,0);
+void battle(Character& player, Deck& deck,Map& map) {		//æˆ°é¬¥
+	Enemy slime("æ®­å±", 15, 4, 10), bat("è™è ", 10, 3, 8), wolfman("ç‹¼äºº", 26, 8, 12), ghost("å¹½éˆ", 30, 5, 15),boss("é­”çŽ‹",50,10,0);
 	Enemy monster;
 	int r = rand() % 4;
 	if (r == 0) {
@@ -188,14 +188,14 @@ void battle(Character& player, Deck& deck,Map& map) {		//¾Ô°«
 		player.setEnergy(en);
 		printFight(monster, player);
 		do{
-			cout << "¿é¤J½s¸¹¥´¥X¥dµP ©Î ¿é¤J0µ²§ô¦^¦X..." << endl << endl;
+			cout << "è¼¸å…¥ç·¨è™Ÿæ‰“å‡ºå¡ç‰Œ æˆ– è¼¸å…¥0çµæŸå›žåˆ..." << endl << endl;
 			deck.showHand();
 			cin >> input;
 			Card temp = *new Card;
 			if (input >= 1 && input <= deck.getNumOfHand()) {
 				int newEn = en-deck.getHand(input - 1).getEnergy();
 				if (newEn < 0) {
-					cout << "¯à¶q¤£¨¬" << endl;
+					cout << "èƒ½é‡ä¸è¶³" << endl;
 				}
 				else {
 					temp = deck.getHand(input - 1);
@@ -261,12 +261,12 @@ void battle(Character& player, Deck& deck,Map& map) {		//¾Ô°«
 				if (monster.getWeekRound() > 0) {
 					monster.setWeekRound(monster.getWeekRound() - 1);
 				}
-				cout << "µ²§ô¦^¦X" << endl;
+				cout << "çµæŸå›žåˆ" << endl;
 				ok = true;
 				break;
 			}
 			else {
-				cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+				cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 			}
 		} while (!ok&& monster.getHp()>0);
 		if (monster.getHp() > 0) {
@@ -281,22 +281,22 @@ void battle(Character& player, Deck& deck,Map& map) {		//¾Ô°«
 					player.setArmor(newArmor);
 				}
 			}
-			cout << monster.getName() << "¹ï§A³y¦¨¤F " << monster.getDamage() << " ÂI¶Ë®`" << endl;
+			cout << monster.getName() << "å°ä½ é€ æˆäº† " << monster.getDamage() << " é»žå‚·å®³" << endl;
 		}
 		if (player.getHP() <= 0) {
-			cout << "§A³Q " << monster.getName() << "®ø·À¤F¡A¹CÀ¸µ²§ô" << endl;
+			cout << "ä½ è¢« " << monster.getName() << " æ¶ˆæ»…äº†ï¼ŒéŠæˆ²çµæŸ" << endl;
 			exit(0);
 		}
 		deck.roundOver();
 	}
 	player.setMoney(player.getMoney() + monster.getMoney());
-	cout <<endl<< "~~~~~~~~~~~~~~~~~~~~~¾Ô°«³Ó§Q~~~~~~~~~~~~~~~~~~~~~" << endl;
-	cout << "\t    §AÀ»±Ñ¤F " << monster.getName() << " ¨ÃÀò±o¤F $" << monster.getMoney() << endl << endl;
+	cout <<endl<< "~~~~~~~~~~~~~~~~~~~~~æˆ°é¬¥å‹åˆ©~~~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "\t    ä½ æ“Šæ•—äº† " << monster.getName() << " ä¸¦ç²å¾—äº† $" << monster.getMoney() << endl << endl;
 }
 void camp(Character& player) {
-	cout <<endl<< "~~~~~~~~~~~~~~~~~~~§A©è¹F¤FÀç¦a~~~~~~~~~~~~~~~~~~~" << endl;
-	cout << "·í«e¥Í©R:" << setw(2) << player.getHP() << '/' << player.getFullHP() << endl << endl;
-	cout << "Àç¤õ¦ü¥G¦³¬YºØ¯«©_ªº¤O¶q:" << endl <<endl;
+	cout <<endl<< "~~~~~~~~~~~~~~~~~~~ä½ æŠµé”äº†ç‡Ÿåœ°~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "ç•¶å‰ç”Ÿå‘½:" << setw(2) << player.getHP() << '/' << player.getFullHP() << endl << endl;
+	cout << "ç‡Ÿç«ä¼¼ä¹Žæœ‰æŸç¨®ç¥žå¥‡çš„åŠ›é‡:" << endl <<endl;
 	int a, b;
 	char input;
 	bool ok=false;
@@ -305,9 +305,9 @@ void camp(Character& player) {
 		a = player.getFullHP();
 	}
 	b = player.getFullHP() + 8;
-	cout << "    1. " << "¦^´_30%¥Í©R­È -> " << a << '/' << player.getFullHP() << endl << endl;
-	cout << "    2. " << "³Ì¤j¥Í©R­È+8 -> " << player.getHP()+8 << '/' << b << endl << endl;
-	cout << "¿é¤J§Aªº¿ï¾Ü..." << endl;
+	cout << "    1. " << "å›žå¾©30%ç”Ÿå‘½å€¼ -> " << a << '/' << player.getFullHP() << endl << endl;
+	cout << "    2. " << "æœ€å¤§ç”Ÿå‘½å€¼+8 -> " << player.getHP()+8 << '/' << b << endl << endl;
+	cout << "è¼¸å…¥ä½ çš„é¸æ“‡..." << endl;
 	while (!ok) {
 		cin >> input;
 		if (input == '1') {
@@ -320,10 +320,10 @@ void camp(Character& player) {
 			ok = true;
 		}
 		else {
-			cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+			cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 		}
 	}
-	cout << "~~~~~~~~~~~~~~~~~~~§AÂ÷¶}¤FÀç¦a~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "~~~~~~~~~~~~~~~~~~~ä½ é›¢é–‹äº†ç‡Ÿåœ°~~~~~~~~~~~~~~~~~~~" << endl;
 }
 void shop(Character& player,Deck& deck) {
 	Card card1, card2, card3,card4;
@@ -335,79 +335,79 @@ void shop(Character& player,Deck& deck) {
 	int p2 = 5 + rand() % 10 + rand() % 20;
 	int p3 = 5 + rand() % 10 + rand() % 20;
 	int p4 = 5 + rand() % 10 + rand() % 20;
-	cout << "~~~~~~~~~~~~~~~~~~~Åwªï¨Ó¨ì°Ó©±~~~~~~~~~~~~~~~~~~~" << endl;
-	cout << "§Aªºª÷¿ú$:" << player.getMoney() << endl << endl;
-	cout << "°Ó«~¦Cªí:" << endl << endl;
+	cout << "~~~~~~~~~~~~~~~~~~~æ­¡è¿Žä¾†åˆ°å•†åº—~~~~~~~~~~~~~~~~~~~" << endl;
+	cout << "ä½ çš„é‡‘éŒ¢$:" << player.getMoney() << endl << endl;
+	cout << "å•†å“åˆ—è¡¨:" << endl << endl;
 	cout << "    1. " << "$" << setw(2) <<p1<< " " << card1.getName() << ":"; card1.getInfo();
 	cout << "    2. " << "$" <<setw(2) << p2 << " " << card2.getName() << ":"; card2.getInfo();
 	cout << "    3. " << "$" << setw(2) << p3<< " " << card3.getName() << ":"; card3.getInfo();
 	cout << "    4. " << "$" << setw(2) << p4<< " " <<card4.getName() << ":"; card4.getInfo();
-	cout << "    5. " << "$" << setw(2) << 50 << " " << "ª±®a¯à¶q+1 " << endl << endl;
-	cout << "¿é¤J°Ó«~½s¸¹ÁÊ¶R ©Î ¿é¤JEÂ÷¶}°Ó©±..." << endl;
+	cout << "    5. " << "$" << setw(2) << 50 << " " << "çŽ©å®¶èƒ½é‡+1 " << endl << endl;
+	cout << "è¼¸å…¥å•†å“ç·¨è™Ÿè³¼è²· æˆ– è¼¸å…¥Eé›¢é–‹å•†åº—..." << endl;
 	while (true) {
 		char input;
 		cin >> input;
 		if (input=='1') {
 			if (player.getMoney() - p1 >= 0) {
-				cout << "ÁÊ¶R¦¨¥\¡A" << card1.getName() << "¤w¥[¤JµP°ï" << endl;
+				cout << "è³¼è²·æˆåŠŸï¼Œ" << card1.getName() << "å·²åŠ å…¥ç‰Œå †" << endl;
 				player.setMoney(player.getMoney() - p1);
-				cout << "³Ñ¾lª÷¿ú$:" << player.getMoney() << endl;
+				cout << "å‰©é¤˜é‡‘éŒ¢$:" << player.getMoney() << endl;
 				deck.addCard(card1);
 			}
 			else {
-				cout << "ÁÊ¶R¥¢±Ñ¡Aª÷¿ú¤£¨¬" << endl;
+				cout << "è³¼è²·å¤±æ•—ï¼Œé‡‘éŒ¢ä¸è¶³" << endl;
 			}
 		}
 		else if (input == '2') {
 			if (player.getMoney() - p2 >= 0) {
-				cout << "ÁÊ¶R¦¨¥\¡A" << card2.getName() << "¤w¥[¤JµP°ï" << endl;
+				cout << "è³¼è²·æˆåŠŸï¼Œ" << card2.getName() << "å·²åŠ å…¥ç‰Œå †" << endl;
 				player.setMoney(player.getMoney() - p2);
-				cout << "³Ñ¾lª÷¿ú$:" << player.getMoney() << endl;
+				cout << "å‰©é¤˜é‡‘éŒ¢$:" << player.getMoney() << endl;
 				deck.addCard(card2);
 			}
 			else {
-				cout << "ÁÊ¶R¥¢±Ñ¡Aª÷¿ú¤£¨¬" << endl;
+				cout << "è³¼è²·å¤±æ•—ï¼Œé‡‘éŒ¢ä¸è¶³" << endl;
 			}
 		}
 		else if (input == '3') {
 			if (player.getMoney() - p3 >= 0) {
-				cout << "ÁÊ¶R¦¨¥\¡A" << card3.getName() << "¤w¥[¤JµP°ï" << endl;
+				cout << "è³¼è²·æˆåŠŸï¼Œ" << card3.getName() << "å·²åŠ å…¥ç‰Œå †" << endl;
 				player.setMoney(player.getMoney() - p3);
-				cout << "³Ñ¾lª÷¿ú$:" << player.getMoney() << endl;
+				cout << "å‰©é¤˜é‡‘éŒ¢$:" << player.getMoney() << endl;
 				deck.addCard(card3);
 			}
 			else {
-				cout << "ÁÊ¶R¥¢±Ñ¡Aª÷¿ú¤£¨¬" << endl;
+				cout << "è³¼è²·å¤±æ•—ï¼Œé‡‘éŒ¢ä¸è¶³" << endl;
 			}
 		}
 		else if (input == '4') {
 			if (player.getMoney() - p4 >= 0) {
-				cout << "ÁÊ¶R¦¨¥\¡A" << card4.getName() << "¤w¥[¤JµP°ï" << endl;
+				cout << "è³¼è²·æˆåŠŸï¼Œ" << card4.getName() << "å·²åŠ å…¥ç‰Œå †" << endl;
 				player.setMoney(player.getMoney() - p4);
-				cout << "³Ñ¾lª÷¿ú$:" << player.getMoney() << endl;
+				cout << "å‰©é¤˜é‡‘éŒ¢$:" << player.getMoney() << endl;
 				deck.addCard(card4);
 			}
 			else {
-				cout << "ÁÊ¶R¥¢±Ñ¡Aª÷¿ú¤£¨¬" << endl;
+				cout << "è³¼è²·å¤±æ•—ï¼Œé‡‘éŒ¢ä¸è¶³" << endl;
 			}
 		}
 		else if (input == '5') {
 			if (player.getMoney() - p2 >= 0) {
-				cout << "ÁÊ¶R¦¨¥\¡A¯à¶q+1" << endl;
+				cout << "è³¼è²·æˆåŠŸï¼Œèƒ½é‡+1" << endl;
 				player.setMoney(player.getMoney() - 50);
-				cout << "³Ñ¾lª÷¿ú$:" << player.getMoney() << endl;
+				cout << "å‰©é¤˜é‡‘éŒ¢$:" << player.getMoney() << endl;
 				player.setEnergy(player.getEnergy() + 1);
 			}
 			else {
-				cout << "ÁÊ¶R¥¢±Ñ¡Aª÷¿ú¤£¨¬" << endl;
+				cout << "è³¼è²·å¤±æ•—ï¼Œé‡‘éŒ¢ä¸è¶³" << endl;
 			}
 		}
 		else if (input == 'e' || input=='H') {
-			cout << "~~~~~~~~~~~~~~~~~~~Åwªï¦A¦¸¥úÁ{~~~~~~~~~~~~~~~~~~~" << endl;
+			cout << "~~~~~~~~~~~~~~~~~~~æ­¡è¿Žå†æ¬¡å…‰è‡¨~~~~~~~~~~~~~~~~~~~" << endl;
 			break;
 		}
 		else {
-			cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+			cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 		}
 	}
 }
@@ -417,11 +417,11 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 	if (map.getMoveTimes() != 10) {
 		int input=0,x=0;
 		bool ok=false;
-		cout << "¿ï¾Ü§Aªº¸ô½u: ";
+		cout << "é¸æ“‡ä½ çš„è·¯ç·š: ";
 		while (!ok) {
 			if (map.getPlayer() == 0) {
 				if (map.getWay1(map.getMoveTimes()) == char(92)) {
-					cout << "1.XXXX 2.©¹«e 3.©¹¤U " << endl;
+					cout << "1.XXXX 2.å¾€å‰ 3.å¾€ä¸‹ " << endl;
 					cin >> input;
 					if (input == 2) {
 						x = 0;
@@ -432,24 +432,24 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 				else {
-					cout << "1.XXXX 2.©¹«e 3.XXXX " << endl;
+					cout << "1.XXXX 2.å¾€å‰ 3.XXXX " << endl;
 					cin >> input;
 					if (input == 2) {
 						x = 0;
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 			}
 			else if (map.getPlayer() == 1) {
 				if (map.getWay1(map.getMoveTimes()) == '/' && map.getWay2(map.getMoveTimes()) == char(92)) {
-					cout << "1.©¹¤W 2.©¹«e 3.©¹¤U" << endl;
+					cout << "1.å¾€ä¸Š 2.å¾€å‰ 3.å¾€ä¸‹" << endl;
 					cin >> input;
 					if (input == 1) {
 						x = 0;
@@ -464,11 +464,11 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 				else if (map.getWay1(map.getMoveTimes()) == '/' && map.getWay2(map.getMoveTimes()) == '/') {
-					cout << "1.©¹¤W 2.©¹«e 3.XXXX " << endl;
+					cout << "1.å¾€ä¸Š 2.å¾€å‰ 3.XXXX " << endl;
 					cin >> input;
 					if (input == 1) {
 						x = 0;
@@ -479,11 +479,11 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 				else if (map.getWay1(map.getMoveTimes()) == char(92) && map.getWay2(map.getMoveTimes()) == char(92)) {
-					cout << "1.XXXX 2.©¹«e 3.©¹¤U " << endl;
+					cout << "1.XXXX 2.å¾€å‰ 3.å¾€ä¸‹ " << endl;
 					cin >> input;
 					if (input == 2) {
 						x = 1;
@@ -494,24 +494,24 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 				else if (map.getWay1(map.getMoveTimes()) == char(92) && map.getWay2(map.getMoveTimes()) == '/') {
-					cout << "1.XXXX 2.©¹«e 3.XXXX " << endl;
+					cout << "1.XXXX 2.å¾€å‰ 3.XXXX " << endl;
 					cin >> input;
 					if (input == 2) {
 						x = 1;
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 			}
 			else if (map.getPlayer() == 2) {
 				if (map.getWay2(map.getMoveTimes()) == '/') {
-					cout << "1.©¹¤W 2.©¹«e 3.XXXX" << endl;
+					cout << "1.å¾€ä¸Š 2.å¾€å‰ 3.XXXX" << endl;
 					cin >> input;
 					if (input == 1) {
 						x = 1;
@@ -522,33 +522,33 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 				else {
-					cout << "1..XXXX 2.©¹«e 3.XXXX" << endl;
+					cout << "1..XXXX 2.å¾€å‰ 3.XXXX" << endl;
 					cin >> input;
 					if (input == 2) {
 						x = 2;
 						ok = true;
 					}
 					else {
-						cout << "¿é¤JµL®Ä¡A½Ð­«·s¿é¤J" << endl;
+						cout << "è¼¸å…¥ç„¡æ•ˆï¼Œè«‹é‡æ–°è¼¸å…¥" << endl;
 					}
 				}
 			}
 		}
 		if (map.getRoad(x, map.getMoveTimes()) == '&') {
 			battle(player, deck, map);
-		//	cout << "¥´©Ç" << endl;
+		//	cout << "æ‰“æ€ª" << endl;
 		}
 		else if (map.getRoad(x, map.getMoveTimes()) == '$') {
 			shop(player, deck);
-		//	cout << "°Ó©±" << endl;
+		//	cout << "å•†åº—" << endl;
 		}
 		else if (map.getRoad(x, map.getMoveTimes()) == '#') {
 			camp(player);
-		//	cout << "Àç¦a" << endl;
+		//	cout << "ç‡Ÿåœ°" << endl;
 		}
 		//cout << x << ',' << map.getMoveTimes() << endl;
 		map.setRoad(x, map.getMoveTimes(), 7);
@@ -556,7 +556,7 @@ void chooseRoad(Map &map,Character& player,Deck& deck) {
 	}
 	else {
 		battle(player, deck, map);
-		cout << "~~~~~~~~~~~~~~~~~·PÁÂ¹Cª±¦¹¹CÀ¸¡I~~~~~~~~~~~~~~~~~";
+		cout << "~~~~~~~~~~~~~~~~~æ„Ÿè¬éŠçŽ©æ­¤éŠæˆ²ï¼~~~~~~~~~~~~~~~~~";
 	}
 }
 int main() {
@@ -566,7 +566,7 @@ int main() {
 	
 	Map map;
 	startPrint();
-	cin.get(); // µ¥«Ý¨Ï¥ÎªÌ«ö¤U Enter Áä
+	cin.get(); // ç­‰å¾…ä½¿ç”¨è€…æŒ‰ä¸‹ Enter éµ
 	chooseCharacter(player);
 	deck.gameStart();
 	map.creatMap();
