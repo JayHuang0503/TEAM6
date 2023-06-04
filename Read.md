@@ -17,3 +17,14 @@
 * 當抵達`#`時能選擇回復30%的生命值或增加最大生命值，以幫助玩家繼續完成遊戲。
 * 在遊戲最後，抵達`!`時將會進入與BOSS的戰鬥，擊敗BOSS即代表完成遊戲。
 ### 程式執行畫面截圖
+![](https://github.com/JayHuang0503/TEAM6/raw/main/專題執行畫面/開始畫面.png)
+![](https://github.com/JayHuang0503/TEAM6/raw/main/專題執行畫面/選擇角色.png)
+![](https://github.com/JayHuang0503/TEAM6/raw/main/專題執行畫面/戰鬥.png)
+![](https://github.com/JayHuang0503/TEAM6/raw/main/專題執行畫面/商店.png)
+![](https://github.com/JayHuang0503/TEAM6/raw/main/專題執行畫面/營地.png)
+## 三、分工資訊
+| 姓名 | 負責部分 |
+|---- | :----------: |
+|**黃詠傑**|Card物件、Map物件、遊戲畫面輸出、main函式|
+|**洪嘉宏**|Character物件|
+|**楊循凱**|Enemy物件|
