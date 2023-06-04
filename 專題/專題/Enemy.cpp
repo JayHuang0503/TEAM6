@@ -54,7 +54,7 @@ void Enemy::setName(string n) {
 	name = n;
 }
 void Enemy::setEnemy(Enemy& a,int mt) {
-	int num = rand() % (mt + 1 * 2);
+	int num = rand() % ((mt + 1) * 2);
 	setName(a.getName());
 	setHp(a.getHp()+num);
 	setFullHp(a.getHp() + num);

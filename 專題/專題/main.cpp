@@ -162,7 +162,7 @@ void printFight(Enemy& monster, Character& player) {
 	cout << '*' << endl;
 }
 void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
-	Enemy slime("殭屍", 15, 4, 9), bat("蝙蝠", 10, 3, 7), wolfman("狼人", 25, 8, 12), ghost("幽靈", 20, 7, 11),boss("魔王",50,10,0);
+	Enemy slime("殭屍", 15, 4, 10), bat("蝙蝠", 10, 3, 8), wolfman("狼人", 26, 8, 12), ghost("幽靈", 30, 5, 15),boss("魔王",50,10,0);
 	Enemy monster;
 	int r = rand() % 4;
 	if (r == 0) {
@@ -291,7 +291,7 @@ void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
 	}
 	player.setMoney(player.getMoney() + monster.getMoney());
 	cout <<endl<< "~~~~~~~~~~~~~~~~~~~~~戰鬥勝利~~~~~~~~~~~~~~~~~~~~~" << endl;
-	cout << "你擊敗了 " << monster.getName() << " 並獲得了 $" << monster.getMoney() << endl << endl;
+	cout << "\t    你擊敗了 " << monster.getName() << " 並獲得了 $" << monster.getMoney() << endl << endl;
 }
 void camp(Character& player) {
 	cout <<endl<< "~~~~~~~~~~~~~~~~~~~你抵達了營地~~~~~~~~~~~~~~~~~~~" << endl;
@@ -570,7 +570,7 @@ int main() {
 	chooseCharacter(player);
 	deck.gameStart();
 	map.creatMap();
-	while (map.getMoveTimes() != 10) {
+	while (map.getMoveTimes() <= 11) {
 		chooseRoad(map, player, deck);
 	}
 }
