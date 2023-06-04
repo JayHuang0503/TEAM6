@@ -69,7 +69,7 @@ int Deck::getNumOfHand() {
 }
 void Deck::showHand() {
 	for (int i = 0; i < numOfHand; i++) {
-		cout <<"	"<< i + 1 << ". " << hand[i].getName() << "¡A";
+		cout <<"  "<< i + 1 << ". " << hand[i].getName() << "¡A";
 		hand[i].getInfo();
 	}
 }

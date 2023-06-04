@@ -50,3 +50,6 @@ void Character::setPlayer(Character x) {
 void Character::setFullHP(int h) {
 	fullHp = h;
 }
+void Character::setFullEnergy(int e) {
+	fullEnergy = e;
+}

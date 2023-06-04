@@ -22,6 +22,7 @@ public:
 	void setArmor(int);
 	void setMoney(int);
 	void setEnergy(int);
+	void setFullEnergy(int);
 	void setPlayer(Character);
 };
 #endif
