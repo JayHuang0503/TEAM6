@@ -10,15 +10,15 @@ private:
 	int fullhp;
 	int damage;
 	int money;
-	int bleedround=0;
-	int weekround=0;
+	int bleedRound=0;
+	int weakRound=0;
 public:
 	Enemy();
 	Enemy(string,int,int,int);
 	void setBleedRound(int);
 	int getBleedRound();
-	void setWeekRound(int);
-	int getWeekRound();
+	void setWeakRound(int);
+	int getWeakRound();
 	int getDamage();
 	void setDamage(int);
 	int getHp();

@@ -27,7 +27,7 @@ public:
 	int getArmor();
 	int getEnergy();
 	int getBleedRound();
-	int getWeekRound();
+	int getWeakRound();
 	void getInfo();
 };
 #endif

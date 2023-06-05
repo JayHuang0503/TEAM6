@@ -12,16 +12,16 @@ Enemy::Enemy(string n,int h, int d, int m) {
 	setMoney(m);
 }
 void Enemy::setBleedRound(int br) {
-	bleedround = br;
+	bleedRound = br;
 }
 int Enemy::getBleedRound() {
-	return bleedround;
+	return bleedRound;
 }
-void Enemy::setWeekRound(int wr) {
-	weekround = wr;
+void Enemy::setWeakRound(int wr) {
+	weakRound = wr;
 }
-int Enemy::getWeekRound() {
-	return weekround;
+int Enemy::getWeakRound() {
+	return weakRound;
 }
 int Enemy::getDamage() {
 	return damage;

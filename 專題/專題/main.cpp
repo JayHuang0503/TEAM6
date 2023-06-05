@@ -113,8 +113,8 @@ void printFight(Enemy& monster, Character& player) {
 			cout << "|                    " << "傷害:" << setw(2) << monster.getDamage() << "                     |" << endl;
 		}
 		else if (i == 9) {
-			if (monster.getWeekRound() != 0) {
-				cout << "|                  " << "虛弱:" << setw(2) << monster.getWeekRound() << "回合" << "                   |" << endl;
+			if (monster.getWeakRound() != 0) {
+				cout << "|                  " << "虛弱:" << setw(2) << monster.getWeakRound() << "回合" << "                   |" << endl;
 			}
 			else {
 				cout << "|";
@@ -162,7 +162,7 @@ void printFight(Enemy& monster, Character& player) {
 	cout << '*' << endl;
 }
 void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
-	Enemy slime("殭屍", 15, 4, 10), bat("蝙蝠", 10, 3, 8), wolfman("狼人", 26, 8, 12), ghost("幽靈", 30, 5, 15),boss("魔王",50,10,0);
+	Enemy slime("殭屍", 15, 4, 10), bat("蝙蝠", 10, 3, 8), wolfman("狼人", 26, 8, 12), ghost("幽靈", 30, 5, 15), boss("魔王", 50, 10, 0);
 	Enemy monster;
 	int r = rand() % 4;
 	if (r == 0) {
@@ -202,13 +202,13 @@ void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
 					en = newEn;
 					player.setEnergy(en);
 					if (temp.getDamage() != 0) {
-						monster.setHp(monster.getHp() - (temp.getDamage()+monster.getWeekRound()));
+						monster.setHp(monster.getHp() - (temp.getDamage()+monster.getWeakRound()));
 					}
 					if (temp.getArmor() != 0) {
 						player.setArmor(temp.getArmor()+player.getArmor());
 					}
-					if (temp.getWeekRound() != 0) {
-						monster.setWeekRound(temp.getWeekRound() + monster.getWeekRound());
+					if (temp.getWeakRound() != 0) {
+						monster.setWeakRound(temp.getWeakRound() + monster.getWeakRound());
 					}
 					if (temp.getBleedRound() != 0) {
 						monster.setBleedRound(temp.getBleedRound() + monster.getBleedRound());
@@ -234,23 +234,23 @@ void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
 					}
 					if (temp.getNum() == 14) {
 						for (int i = 0; i < 4; i++) {
-							monster.setHp(monster.getHp() - (temp.getDamage() + monster.getWeekRound()));
+							monster.setHp(monster.getHp() - (temp.getDamage() + monster.getWeakRound()));
 						}
 					}
 					if (temp.getNum() == 15) {
 						player.setHP(player.getHP() - 5);
 					}
 					if (temp.getNum() == 16) {
-						if (player.getHP() + temp.getDamage() + monster.getWeekRound() > player.getFullHP()) {
+						if (player.getHP() + temp.getDamage() + monster.getWeakRound() > player.getFullHP()) {
 							player.setHP(player.getFullHP());
 						}
 						else {
-							player.setHP(player.getHP()+temp.getDamage() + monster.getWeekRound());
+							player.setHP(player.getHP()+temp.getDamage() + monster.getWeakRound());
 						}
 					}
 					if (temp.getNum() == 17) {
 						for (int i = 0; i < 6; i++) {
-							monster.setHp(monster.getHp() - (temp.getDamage() + monster.getWeekRound()));
+							monster.setHp(monster.getHp() - (temp.getDamage() + monster.getWeakRound()));
 						}
 					}
 					deck.setUsed(temp);
@@ -263,8 +263,8 @@ void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
 					monster.setHp(monster.getHp() - 2);
 					monster.setBleedRound(monster.getBleedRound() - 1);
 				}
-				if (monster.getWeekRound() > 0) {
-					monster.setWeekRound(monster.getWeekRound() - 1);
+				if (monster.getWeakRound() > 0) {
+					monster.setWeakRound(monster.getWeakRound() - 1);
 				}
 				cout << "結束回合" << endl;
 				ok = true;
@@ -286,10 +286,14 @@ void battle(Character& player, Deck& deck,Map& map) {		//戰鬥
 					player.setArmor(newArmor);
 				}
 			}
+			else {
+				player.setHP(player.getHP() - monster.getDamage());
+			}
 			cout << monster.getName() << "對你造成了 " << monster.getDamage() << " 點傷害" << endl;
 		}
 		if (player.getHP() <= 0) {
-			cout << "你被 " << monster.getName() << " 消滅了，遊戲結束" << endl;
+			cout << "~~~~~~~~~~~~~~~~~~~~~遊戲結束~~~~~~~~~~~~~~~~~~~~~" << endl;
+			cout << "		你被 " << monster.getName() << " 消滅了" << endl;
 			exit(0);
 		}
 		deck.roundOver();

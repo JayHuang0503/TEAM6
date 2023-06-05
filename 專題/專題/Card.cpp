@@ -26,7 +26,7 @@ int Card::getEnergy() {
 int Card::getBleedRound() {
 	return infoOfCard[num - 1][3];
 }
-int Card::getWeekRound() {
+int Card::getWeakRound() {
 	return infoOfCard[num-1][4];
 }
 void Card::getInfo() {		//卡牌描述
@@ -45,12 +45,12 @@ void Card::getInfo() {		//卡牌描述
 		cout << "獲得" << getArmor() << "點護甲";
 		c += 1;
 	}
-	if (getWeekRound() != 0) {
+	if (getWeakRound() != 0) {
 		if (c > 0) {
 			cout << " 並 ";
 		}
-		cout << "造成" << getWeekRound() << "層「虛弱」";
-		cout << endl << "\t  *虛弱:受到的傷害+1";
+		cout << "造成" << getWeakRound() << "層「虛弱」";
+		cout << endl << "\t\t  *虛弱:受到的傷害+1";
 		c += 1;
 	}
 	if (getBleedRound() != 0) {
@@ -58,7 +58,7 @@ void Card::getInfo() {		//卡牌描述
 			cout << " 並 ";
 		}
 		cout << "造成" << getBleedRound() << "層「流血」";
-		cout << endl << "\t  *流血:回合結束生命-2";
+		cout << endl << "\t\t  *流血:回合結束生命-2";
 		c += 1;
 	}
 	if (getNum() == 4) {
